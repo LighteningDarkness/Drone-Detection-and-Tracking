@@ -17,13 +17,13 @@ from utils.visualize import plot_tracking
 from ByteTrack.tracking_utils.timer import Timer
 from inference import Detect
 import json
-def track_demo(video_path="dataset/Drone-Detection&Tracking/test/01_2192_0001-1500" ):
+def track_demo(video_path="dataset/Drone-Detection&Tracking/test/01_2192_0001-1500",save_txt=True):
     txt_dir = "result_bt"
     if not os.path.exists(txt_dir):
         os.makedirs(txt_dir)
     
     # Detected
-    conf_thres = 0.25
+    conf_thres = 0.1
     iou_thres = 0.25
     img_size = 640
     weights = "runs/train/exp/weights/best.pt"
@@ -57,7 +57,7 @@ def track_demo(video_path="dataset/Drone-Detection&Tracking/test/01_2192_0001-15
         if i==0:
             with open(os.path.join(video_path,"IR_label.json")) as f:
                 res_first=json.load(f)
-            dets=res_first["res"]
+            dets=res_first["res"] if "res" in res_first.keys() else res_first["gt_rect"][0:1]
             dets[0][2]+=dets[0][0]
             dets[0][3]+=dets[0][1]
             dets[0].append(1.0)
@@ -73,7 +73,7 @@ def track_demo(video_path="dataset/Drone-Detection&Tracking/test/01_2192_0001-15
         online_tlwhs = []
         online_ids = []
         online_scores = []
-        print(len(online_targets)==0)
+        #print(len(online_targets)==0)
         for t in online_targets:
             tlwh = t.tlwh
             tid = t.track_id
@@ -94,9 +94,11 @@ def track_demo(video_path="dataset/Drone-Detection&Tracking/test/01_2192_0001-15
         timer.toc()
         #print(1. / timer.average_time)
         #online_im = plot_tracking(im0, online_tlwhs, online_ids, frame_id=frame_id + 1, fps=1. / 1 /(t2-t1))
-    with open(res_file, 'w+') as f:
-        f.write(str({"res":results}))
+    if save_txt:
+        with open(res_file, 'w+') as f:
+            f.write(str({"res":results}))
         #cv2.imshow("Frame", online_im)
+    return results
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--source', type=str, default='inference/images', help='source')  # file/folder, 0 for webcam

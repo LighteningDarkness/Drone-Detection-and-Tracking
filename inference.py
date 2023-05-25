@@ -16,7 +16,7 @@ from utils.metrics import ap_per_class, ConfusionMatrix
 from utils.torch_utils import select_device, time_synchronized, TracedModel
 
 class Detect(object):
-    def __init__(self, weights, device, img_size, conf_thres, iou_thres, single_cls=False, half_precision=True, trace= False):
+    def __init__(self, weights="runs/train/exp/weights/best.pt", device=0, img_size=640, conf_thres=0.25, iou_thres=0.25, single_cls=False, half_precision=True, trace= False):
         self.weights = weights 
         self.device =  device 
         self.device = select_device(str(device))
