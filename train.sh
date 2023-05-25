@@ -1,0 +1,1 @@
+python train.py --weights weights/yolov7_training.pt --cfg cfg/training/yolov7-drone.yaml --data data/drone.yaml --device 0 --batch-size 16 --epoch 10

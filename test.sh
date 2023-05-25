@@ -1,0 +1,1 @@
+python test.py --data data/drone.yaml --img 640 --batch 32 --conf-thres 0.001 --iou-thres 0. --device 0 --weights weights/yolov7.pt --name yolov7_640_val
