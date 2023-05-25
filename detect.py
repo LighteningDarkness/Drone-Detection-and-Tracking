@@ -95,7 +95,7 @@ def detect(save_img=False):
         if len(pred)>1:
             max_idx=0
             for i,p in enumerate(pred):
-                if p[0,4]>p[max_idx,4]:
+                if p[0,4]>pred[max_idx][0,4]:
                     max_idx=i
             pred=pred[max_idx:max_idx+1]
         # Apply Classifier
