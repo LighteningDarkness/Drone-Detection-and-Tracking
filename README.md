@@ -28,5 +28,5 @@ python cal_acc.py --method ByteTrack
 ```
 如果您想利用ByteTrack+YOLOv7得出测试集的结果，可以输入以下命令，结果储存在result_bt：
 ``` shell
-python track_demo.py
+./track.sh
 ```
