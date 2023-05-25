@@ -15,7 +15,7 @@ import time
 from ByteTrack.tracker.byte_tracker import BYTETracker
 from utils.visualize import plot_tracking
 from ByteTrack.tracking_utils.timer import Timer
-from yolov7.DetectModel import Detect
+from DetectModel import Detect
 import json
 def track_demo(video_path="dataset/Drone-Detection&Tracking/test/01_2192_0001-1500",save_txt=True):
     txt_dir = "result_bt"
@@ -93,11 +93,12 @@ def track_demo(video_path="dataset/Drone-Detection&Tracking/test/01_2192_0001-15
         print(f"FPS:{1 /(t2-t1):.2f}")
         timer.toc()
         #print(1. / timer.average_time)
-        #online_im = plot_tracking(im0, online_tlwhs, online_ids, frame_id=frame_id + 1, fps=1. / 1 /(t2-t1))
+        # online_im = plot_tracking(im0, online_tlwhs, online_ids, frame_id=frame_id + 1, fps=1. / 1 /(t2-t1))
+        # cv2.imshow("Frame", online_im)
     if save_txt:
         with open(res_file, 'w+') as f:
             f.write(str({"res":results}))
-        #cv2.imshow("Frame", online_im)
+        
     return results
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
