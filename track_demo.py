@@ -15,7 +15,7 @@ import time
 from ByteTrack.tracker.byte_tracker import BYTETracker
 from utils.visualize import plot_tracking
 from ByteTrack.tracking_utils.timer import Timer
-from inference import Detect
+from yolov7.DetectModel import Detect
 import json
 def track_demo(video_path="dataset/Drone-Detection&Tracking/test/01_2192_0001-1500",save_txt=True):
     txt_dir = "result_bt"

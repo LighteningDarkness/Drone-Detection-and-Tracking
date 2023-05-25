@@ -1,7 +1,7 @@
 from track_demo import track_demo
 import os
 import json
-from inference import Detect
+from yolov7.DetectModel import Detect
 import cv2
 import argparse
 def cal_iou(b1,b2):
