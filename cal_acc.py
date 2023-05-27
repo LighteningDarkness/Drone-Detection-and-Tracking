@@ -1,9 +1,10 @@
 from track_demo import track_demo
 import os
 import json
-from yolov7.DetectModel import Detect
+from DetectModel import Detect
 import cv2
 import argparse
+import time
 def cal_iou(b1,b2):
     x1,y1,w1,h1=b1
     x2,y2,w2,h2=b2
@@ -19,7 +20,8 @@ def cal_acc(args):
         tmp=i.split('/')
         valid_video.add(tmp[-2])
     acc=dict()
-
+    sum=0
+    t1=time.perf_counter()
     for v in valid_video:
         TP=0
         TN=0
@@ -49,7 +51,6 @@ def cal_acc(args):
                     results.append(det)
         with open(os.path.join("dataset/Drone-Detection&Tracking/train",v,"IR_label.json")) as f:
             gt=json.load(f)
-        print(v)
         assert len(results)==len(gt["exist"])
         for i in range(len(results)):
             if results[i]!=[] and gt["exist"][i]!=0:
@@ -64,8 +65,11 @@ def cal_acc(args):
                 FN+=1
         acc[v]=(TP+TN)/len(results)-0.2*(FN/gt_seen)**0.3
         print(f"acc of {v}:{acc[v]}")
+        sum+=len(results)
+    t2=time.perf_counter()
     print(acc)
     print(f"avg acc:{sum(acc.values(),0)/len(acc.keys())}")
+    print(f"FPS:{sum/(t2-t1)}")
 
 
 if __name__=="__main__":
