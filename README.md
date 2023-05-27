@@ -1,3 +1,6 @@
+# 前排提示
+此仓库为某高校直研考核代码，可能仅针对此任务有效，请谨慎clone
+
 # 说明
 代码基于YOLOv7以及ByteTrack代码改动，将ByteTrack检测器由YOLOx切换为YOLOv7.
 # 数据准备
